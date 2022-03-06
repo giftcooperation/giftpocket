@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "local"
