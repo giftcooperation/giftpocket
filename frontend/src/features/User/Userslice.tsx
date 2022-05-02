@@ -24,9 +24,16 @@ const initialState: UserState = {
   loading: 'idle',
 }
 
+export type Fuckdata = {
+  name: string
+  email: string
+  password: string
+}
+
 export const signupUser = createAsyncThunk(
   'users/signupUser',
-  async (name, email, password, thunkAPI) => {
+  async (inputdata: Fuckdata, thunkAPI) => {
+    const { name, email, password } = inputdata
     try {
       const response = await fetch(
         'https://mock-user-auth-server.herokuapp.com/api/v1/users',

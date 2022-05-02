@@ -2,18 +2,27 @@ import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import { signupUser, userSelector, clearState, Signupdata } from './Userslice'
+import { signupUser, userSelector, clearState, Fuckdata } from './Userslice'
 import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
+import { AppDispatch } from '../../app/store'
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+//import toast from 'react-hot-toast'
 const Signup = () => {
-  const dispatch = Appdispath.useDispatch()
-  const { register, errors, handleSubmit } = useForm()
+  const dispatch = useAppDispatch()
+  const { register, handleSubmit } = useForm<Fuckdata>()
+  //const onSubmit = handleSubmit((data) => console.log(data))
   const navigate = useNavigate()
   const { isFetching, isSuccess, isError, errorMessage } =
     useSelector(userSelector)
-  const onSubmit = (data: string) => (dispatch) => {
-    dispatch(signupUser(data))
+
+  const onSubmit = (fuckdata: Fuckdata) => {
+    dispatch(signupUser(fuckdata))
   }
+  /*
+  const onSubmit = handleSubmit((fuckdata: string) =>
+    dispatch(signupUser(fuckdata))
+  )
+  */
   useEffect(() => {
     return () => {
       dispatch(clearState())
@@ -25,7 +34,7 @@ const Signup = () => {
       navigate('/')
     }
     if (isError) {
-      toast.error(errorMessage)
+      //toast.error(errorMessage)
       dispatch(clearState())
     }
   }, [isSuccess, isError])
