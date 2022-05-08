@@ -6,6 +6,7 @@ import { signupUser, userSelector, clearState, Fuckdata } from './Userslice'
 import { useNavigate } from 'react-router-dom'
 import { AppDispatch } from '../../app/store'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import 'bootstrap/dist/css/bootstrap.css'
 //import toast from 'react-hot-toast'
 const Signup = () => {
   const dispatch = useAppDispatch()
@@ -13,7 +14,7 @@ const Signup = () => {
   //const onSubmit = handleSubmit((data) => console.log(data))
   const navigate = useNavigate()
   const { isFetching, isSuccess, isError, errorMessage } =
-    useSelector(userSelector)
+    useAppSelector(userSelector)
 
   const onSubmit = (fuckdata: Fuckdata) => {
     dispatch(signupUser(fuckdata))
@@ -53,6 +54,9 @@ const Signup = () => {
               onSubmit={handleSubmit(onSubmit)}
               method="POST"
             >
+              <input {...register('name')} />
+              <input type="password" {...register('password')} />
+              <input type="email" {...register('email')} />
               {/* Form Comes Here  */}
             </form>
             <div className="mt-6">
