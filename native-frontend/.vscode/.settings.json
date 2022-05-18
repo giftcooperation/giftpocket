@@ -1,0 +1,12 @@
+{
+    // enable globally (here: format on save)
+    "editor.formatOnSave": true,
+    // enable per-language (here: Prettier as formatter)
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "eslint.validate": ["typescriptreact"],
+  }
