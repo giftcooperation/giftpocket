@@ -5,6 +5,14 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
+import * as eva from '@eva-design/eva';
+
+import React from 'react';
+import { StyleSheet } from 'react-native'
+import { ApplicationProvider, IconRegistry, Button, Icon, Layout, Text } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import SignUpScreen from './screens/SignUpScreen';
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -13,10 +21,28 @@ export default function App() {
     return null;
   } else {
     return (
+      <>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.dark}>
+          <SignUpScreen />
+        </ApplicationProvider>
+      </>
+      /*
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
       </SafeAreaProvider>
+      */
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    marginHorizontal: 8,
+  },
+});
