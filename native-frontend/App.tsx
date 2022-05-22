@@ -12,6 +12,7 @@ import { StyleSheet } from 'react-native'
 import { ApplicationProvider, IconRegistry, Button, Icon, Layout, Text } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { AppNavigator } from './navigation/navigator';
+import { IoniconsPack } from './adapters/IconAdapter';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -22,6 +23,7 @@ export default function App() {
   } else {
     return (
       <>
+        <IconRegistry icons={IoniconsPack} />
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.dark}>
           <AppNavigator/>
