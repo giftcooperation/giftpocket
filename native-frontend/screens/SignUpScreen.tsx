@@ -12,70 +12,93 @@ import {
   Input,
   Layout,
   Text,
+  TopNavigation,
+  TopNavigationAction,
 } from '@ui-kitten/components';
 
+const AlertIcon = (props) => (
+  <Icon {...props} name='alert-circle-outline'/>
+);
 
+const BackIcon = (props) => (
+  <Icon {...props} name='arrow-back' />
+);
 
-export const SignUpScreen = () => {
-  const [value, setValue] = React.useState('');
+export const SignUpScreen = ({ navigation }) => {
+  const [emailValue, setEmailValue] = React.useState('');
+  const [passwordValue, setPasswordValue] = React.useState('');
+  const [repeatPasswordValue, setRepeatPasswordValue] = React.useState('');
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
   
+  const navigateBack = () => {
+    navigation.goBack();
+  };
+
+  const BackAction = () => (
+    <TopNavigationAction icon={BackIcon} onPress={navigateBack}/>
+  );
+
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
 
-  const renderIcon = () => (
+  const renderIcon = (props) => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
-      <Icon name='star'/>
+      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'}/>
     </TouchableWithoutFeedback>
   );
 
   const renderCaption = () => {
     return (
       <View style={styles.captionContainer}>
-        <Icon name='alert-circle-outline'/>
+        {AlertIcon(styles.captionIcon)}
         <Text style={styles.captionText}>Should contain at least 8 symbols</Text>
       </View>
     )
   }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <TopNavigation alignment='center' accessoryLeft={BackAction}/>
       <Layout style={styles.signUpContainer}>
           <Text style={styles.paragraph} category='h1'>
-          UI Kitten x React Hook 
+          SignUp
           </Text>         
           <Input
             placeholder='Place your Text'
             style={styles.formInput}
             label="Email"
-            value={value}
+            value={emailValue}
             size='large'
-            onChangeText={nextValue => setValue(nextValue)}
+            onChangeText={nextValue => setEmailValue(nextValue)}
           />
           <Input
             placeholder='Place your Text'
             style={styles.formInput}
             label="Nickname"
-            value={value}
             size='large'
-            onChangeText={nextValue => setValue(nextValue)}
           />
           <Input
-            placeholder='Place your Text'
+            value={passwordValue}
             style={styles.formInput}
-            label="Nickname"
-            value={value}
-            size='large'
-            onChangeText={nextValue => setValue(nextValue)}
-          />
-          <Input
-            value={value}
             label='Password'
             placeholder='Place your Text'
             caption={renderCaption}
             accessoryRight={renderIcon}
             secureTextEntry={secureTextEntry}
-            onChangeText={nextValue => setValue(nextValue)}
+            size='large'
+            onChangeText={nextValue => setPasswordValue(nextValue)}
+          />
+          <Input
+            value={repeatPasswordValue}
+            style={styles.formInput}
+            label='RepeatPassword'
+            placeholder='Place your Text'
+            caption={renderCaption}
+            accessoryRight={renderIcon}
+            secureTextEntry={secureTextEntry}
+            size='large'
+            onChangeText={nextValue => setRepeatPasswordValue(nextValue)}
           />
           <Button
               style={styles.signUpButton}
@@ -153,8 +176,8 @@ const styles = StyleSheet.create({
       marginTop: 8,
     },
     formInput: {
-      width : '90%',
-      marginTop: 16,
+      alignSelf: 'stretch',
+      marginTop: 32,
       marginHorizontal: 16,
     },
     captionContainer: {
