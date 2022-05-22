@@ -11,7 +11,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native'
 import { ApplicationProvider, IconRegistry, Button, Icon, Layout, Text } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import SignUpScreen from './screens/SignUpScreen';
+import { AppNavigator } from './navigation/navigator';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -24,7 +24,7 @@ export default function App() {
       <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.dark}>
-          <SignUpScreen />
+          <AppNavigator/>
         </ApplicationProvider>
       </>
       /*
